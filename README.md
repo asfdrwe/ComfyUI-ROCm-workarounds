@@ -33,7 +33,7 @@ ComfyUI 本体では、AMD 環境の VAE メモリ推定に `VAE_KL_MEM_RATIO = 
 
 ## インストール
 
-custom_nodes フォルダで `git clone `してください。
+custom_nodes フォルダで `git clone https://github.com/asfdrwe/ComfyUI-ROCm-workarounds/`してください。
 
 AMD/ROCm 環境で `comfy.model_management.is_amd()` が `True` を返す場合だけ、読み込み時にパッチを適用します。それ以外の環境では何もしません。
 
