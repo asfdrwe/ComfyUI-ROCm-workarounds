@@ -31,7 +31,7 @@ ComfyUI 本体では、AMD 環境の VAE メモリ推定に `VAE_KL_MEM_RATIO = 
 
 条件に当てはまらない場合は、ComfyUI 本来の `_conv_forward` を呼び出します。`manual_cast.Conv3d` も対象クラスを継承しているため、この置き換えの影響を受けます。
 
-### 3. VAE を split attention ではなく、pytorch attention で動かす
+### 3. VAE を split attention ではなく、pytorch attention で動かす (2026/11/21追加)
 
 対象: `comfy/model_managemant.py` の `pytorch_attention_enabled_vae`
 
