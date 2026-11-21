@@ -12,6 +12,10 @@ log = logging.getLogger(__name__)
 
 if model_management.is_amd():
 
+    # --- Force PyTorch attention for VAE encode/decode ---
+    model_management.pytorch_attention_enabled_vae = lambda: True
+    log.info("[ROCm] VAE PyTorch attention forced")
+
     # --- VAE memory ratio: AMD -> 1.0 ---
 
     original_init = sd.VAE.__init__

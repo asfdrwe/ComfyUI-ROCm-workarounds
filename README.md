@@ -1,6 +1,6 @@
 # ComfyUI ROCm Workarounds
 
-ComfyUI の AMD/ROCm 環境向けに、2つの回避策を起動時に適用する小さなカスタムノードです。
+ComfyUI の AMD/ROCm 環境向けに、3つの回避策を起動時に適用する小さなカスタムノードです。
 
 ChatGPT に作ってもらいました。
 
@@ -31,6 +31,12 @@ ComfyUI 本体では、AMD 環境の VAE メモリ推定に `VAE_KL_MEM_RATIO = 
 
 条件に当てはまらない場合は、ComfyUI 本来の `_conv_forward` を呼び出します。`manual_cast.Conv3d` も対象クラスを継承しているため、この置き換えの影響を受けます。
 
+### 3. VAE を split attention ではなく、pytorch attention で動かす
+
+対象: `comfy/model_managemant.py` の `pytorch_attention_enabled_vae`
+
+gfx11xx (RDNA3) に対して明示的に pytorch attention を無効にするワークアラウンドが入っているのですが、fedora 45 rocm7.2.1 + Radeon 7800XT では pytorch attention でも問題が起きないので、pytorch attention を有効にする修正です。
+
 ## インストール
 
 custom_nodes フォルダで `git clone https://github.com/asfdrwe/ComfyUI-ROCm-workarounds/`してください。
@@ -44,6 +50,7 @@ AMD/ROCm 環境で `comfy.model_management.is_amd()` が `True` を返す場合�
 パッチが登録された場合、起動ログに次のようなメッセージが表示されます。
 
 ```text
+[INFO] [ROCm] VAE PyTorch attention forced
 [ROCm] VAE memory ratio workaround installed
 [ROCm] Conv3d workaround installed
 ```
